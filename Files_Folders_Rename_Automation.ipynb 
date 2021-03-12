@@ -1,0 +1,158 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "File_Rename_Automation.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true,
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/achrafaitmbarek/Automated-Files-Folders-Management-/blob/main/Files_Folders_Rename_Automation.ipynb%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "NpEML_FN_hme"
+      },
+      "source": [
+        "\r\n",
+        "***Liaison avec Google Drive***"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "50jMVGJrbSOC",
+        "outputId": "7114586b-86b0-422f-fefc-b9d2dc7406a5"
+      },
+      "source": [
+        "from google.colab import drive\n",
+        "drive.mount('/content/drive')"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Mounted at /content/drive\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "zALJliHnAC4k"
+      },
+      "source": [
+        "*here we will automate the process to organize the data well every file should have the same name as the directory parent* "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "knPxZr_xVkTx"
+      },
+      "source": [
+        "import subprocess \r\n",
+        "import os \r\n",
+        "import image as img \r\n",
+        "from PIL import Image\r\n",
+        "#path = \"/content/drive/MyDrive/Renom_Test\"\r\n",
+        "path=(\"/content/drive/MyDrive/Rapport PFE - HexaCoders/Dataset V2/TrainingData\")\r\n",
+        "#path = os.getcwd()\r\n",
+        "#path=\"/content/drive/MyDrive/testiing2/TestingData\"\r\n",
+        "for filename in os.listdir(path):\r\n",
+        "   path_image = os.path.join(path,filename) \r\n",
+        "   i=1 \r\n",
+        "   for img in os.listdir(path_image): \r\n",
+        "      old_file_name = os.path.join(path_image,img)\r\n",
+        "      new_file_name = os.path.join(path_image,filename+\"_\"+str(i)+\".png\") \r\n",
+        "      os.rename(old_file_name, new_file_name)\r\n",
+        "      tmp = new_file_name.split('.')[0] \r\n",
+        "      im = Image.open(new_file_name)\r\n",
+        "      im = im.convert('RGB') \r\n",
+        "      im.save(tmp+'.jpeg')\r\n",
+        "      os.remove(new_file_name)\r\n",
+        "      i+=1\r\n",
+        "      print(str(i))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "N_qKriPB2yx5"
+      },
+      "source": [
+        "***create folders automatically***"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "JGg2ATskFz96"
+      },
+      "source": [
+        "# importing os module   \r\n",
+        "import os  \r\n",
+        "    \r\n",
+        "# Directory  \r\n",
+        "directories = [\"ya\", \"yab\", \"yach\", \"yad\", \"yadd\", \"yae\", \"yaf\", \"yag\", \"yagh\", \r\n",
+        "              \"yagw\", \"yah\", \"yahh\", \"yaj\", \"yak\", \"yakw\", \"yal\", \"yam\", \"yan\", \r\n",
+        "              \"yaq\", \"yar\",\"yarr\", \"yas\", \"yass\", \"yat\", \"yatt\", \"yaw\", \"yax\", \r\n",
+        "              \"yay\", \"yaz\", \"yazz\", \"yey\", \"yi\", \"yu\"] \r\n",
+        "    \r\n",
+        "  # Parent Directory path  \r\n",
+        "  parent_dir = \"/content/drive/MyDrive/Rapport PFE - HexaCoders/Dataset V2/TestingData\"\r\n",
+        "  i=0\r\n",
+        "# Path \r\n",
+        "for i in directories:\r\n",
+        "  path = os.path.join(parent_dir, i)\r\n",
+        "  if not os.path.exists(path):\r\n",
+        "   os.mkdir(path)  \r\n",
+        "   print(\"Directory '% s' created\" %i)\r\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "17L69ftJkrdf"
+      },
+      "source": [
+        "# from google.colab import files\r\n",
+        "\r\n",
+        "# uploaded = files.upload()\r\n",
+        "\r\n",
+        "# for fn in uploaded.keys():\r\n",
+        "#   print('User uploaded file \"{name}\" with length {length} bytes'.format(\r\n",
+        "#       name=fn, length=len(uploaded[fn])))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
